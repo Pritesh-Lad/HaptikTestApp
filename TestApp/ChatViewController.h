@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ChatViewController.h
 //  TestApp
 //
 //  Created by Pritesh Lad on 10/05/16.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UITableViewController
-
+@interface ChatViewController : UIViewController
 
 @end
-

@@ -14,6 +14,10 @@
 		21695CE31CE1B7A6003C4ACC /* TestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 21695CE11CE1B7A5003C4ACC /* TestApp.xcdatamodeld */; };
 		21695CE51CE1B7A6003C4ACC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21695CE41CE1B7A6003C4ACC /* Assets.xcassets */; };
 		21695CE81CE1B7A6003C4ACC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21695CE61CE1B7A6003C4ACC /* LaunchScreen.storyboard */; };
+		21695CF11CE1D88B003C4ACC /* StringsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21695CF01CE1D88A003C4ACC /* StringsViewController.m */; };
+		21695CF41CE1D8D1003C4ACC /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21695CF31CE1D8D1003C4ACC /* ChatViewController.m */; };
+		21695CF71CE1D8F1003C4ACC /* TwitterSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21695CF61CE1D8F1003C4ACC /* TwitterSearchViewController.m */; };
+		21695CF91CE1EE83003C4ACC /* button_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21695CF81CE1EE82003C4ACC /* button_bg@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,13 @@
 		21695CE41CE1B7A6003C4ACC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21695CE71CE1B7A6003C4ACC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		21695CE91CE1B7A6003C4ACC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21695CEF1CE1D88A003C4ACC /* StringsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringsViewController.h; sourceTree = "<group>"; };
+		21695CF01CE1D88A003C4ACC /* StringsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringsViewController.m; sourceTree = "<group>"; };
+		21695CF21CE1D8D0003C4ACC /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		21695CF31CE1D8D1003C4ACC /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		21695CF51CE1D8F1003C4ACC /* TwitterSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterSearchViewController.h; sourceTree = "<group>"; };
+		21695CF61CE1D8F1003C4ACC /* TwitterSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterSearchViewController.m; sourceTree = "<group>"; };
+		21695CF81CE1EE82003C4ACC /* button_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_bg@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,10 +71,17 @@
 		21695CD41CE1B7A3003C4ACC /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				21695CF81CE1EE82003C4ACC /* button_bg@2x.png */,
 				21695CD81CE1B7A4003C4ACC /* AppDelegate.h */,
 				21695CD91CE1B7A4003C4ACC /* AppDelegate.m */,
 				21695CDB1CE1B7A4003C4ACC /* ViewController.h */,
 				21695CDC1CE1B7A4003C4ACC /* ViewController.m */,
+				21695CEF1CE1D88A003C4ACC /* StringsViewController.h */,
+				21695CF01CE1D88A003C4ACC /* StringsViewController.m */,
+				21695CF21CE1D8D0003C4ACC /* ChatViewController.h */,
+				21695CF31CE1D8D1003C4ACC /* ChatViewController.m */,
+				21695CF51CE1D8F1003C4ACC /* TwitterSearchViewController.h */,
+				21695CF61CE1D8F1003C4ACC /* TwitterSearchViewController.m */,
 				21695CDE1CE1B7A5003C4ACC /* Main.storyboard */,
 				21695CE41CE1B7A6003C4ACC /* Assets.xcassets */,
 				21695CE61CE1B7A6003C4ACC /* LaunchScreen.storyboard */,
@@ -140,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21695CE81CE1B7A6003C4ACC /* LaunchScreen.storyboard in Resources */,
+				21695CF91CE1EE83003C4ACC /* button_bg@2x.png in Resources */,
 				21695CE51CE1B7A6003C4ACC /* Assets.xcassets in Resources */,
 				21695CE01CE1B7A5003C4ACC /* Main.storyboard in Resources */,
 			);
@@ -153,6 +172,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				21695CDD1CE1B7A4003C4ACC /* ViewController.m in Sources */,
+				21695CF71CE1D8F1003C4ACC /* TwitterSearchViewController.m in Sources */,
+				21695CF11CE1D88B003C4ACC /* StringsViewController.m in Sources */,
+				21695CF41CE1D8D1003C4ACC /* ChatViewController.m in Sources */,
 				21695CE31CE1B7A6003C4ACC /* TestApp.xcdatamodeld in Sources */,
 				21695CDA1CE1B7A4003C4ACC /* AppDelegate.m in Sources */,
 				21695CD71CE1B7A4003C4ACC /* main.m in Sources */,
