@@ -146,7 +146,6 @@
     messageCell.messageLabel.text = message.body;
     messageCell.nameLabel.text = message.name;
     
-    
     NSURL *url = [NSURL URLWithString:message.imageUrl];
     
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
