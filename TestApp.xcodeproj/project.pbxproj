@@ -18,6 +18,8 @@
 		21695CF41CE1D8D1003C4ACC /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21695CF31CE1D8D1003C4ACC /* ChatViewController.m */; };
 		21695CF71CE1D8F1003C4ACC /* TwitterSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21695CF61CE1D8F1003C4ACC /* TwitterSearchViewController.m */; };
 		21695CF91CE1EE83003C4ACC /* button_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21695CF81CE1EE82003C4ACC /* button_bg@2x.png */; };
+		21695CFC1CE2FFBC003C4ACC /* MessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 21695CFB1CE2FFBB003C4ACC /* MessageData.m */; };
+		21695CFF1CE321F2003C4ACC /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21695CFE1CE321F2003C4ACC /* MessageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,10 @@
 		21695CF51CE1D8F1003C4ACC /* TwitterSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterSearchViewController.h; sourceTree = "<group>"; };
 		21695CF61CE1D8F1003C4ACC /* TwitterSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterSearchViewController.m; sourceTree = "<group>"; };
 		21695CF81CE1EE82003C4ACC /* button_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_bg@2x.png"; sourceTree = "<group>"; };
+		21695CFA1CE2FFBB003C4ACC /* MessageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageData.h; sourceTree = "<group>"; };
+		21695CFB1CE2FFBB003C4ACC /* MessageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageData.m; sourceTree = "<group>"; };
+		21695CFD1CE321F2003C4ACC /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
+		21695CFE1CE321F2003C4ACC /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +94,10 @@
 				21695CE91CE1B7A6003C4ACC /* Info.plist */,
 				21695CE11CE1B7A5003C4ACC /* TestApp.xcdatamodeld */,
 				21695CD51CE1B7A3003C4ACC /* Supporting Files */,
+				21695CFA1CE2FFBB003C4ACC /* MessageData.h */,
+				21695CFB1CE2FFBB003C4ACC /* MessageData.m */,
+				21695CFD1CE321F2003C4ACC /* MessageCell.h */,
+				21695CFE1CE321F2003C4ACC /* MessageCell.m */,
 			);
 			path = TestApp;
 			sourceTree = "<group>";
@@ -177,7 +187,9 @@
 				21695CF41CE1D8D1003C4ACC /* ChatViewController.m in Sources */,
 				21695CE31CE1B7A6003C4ACC /* TestApp.xcdatamodeld in Sources */,
 				21695CDA1CE1B7A4003C4ACC /* AppDelegate.m in Sources */,
+				21695CFF1CE321F2003C4ACC /* MessageCell.m in Sources */,
 				21695CD71CE1B7A4003C4ACC /* main.m in Sources */,
+				21695CFC1CE2FFBC003C4ACC /* MessageData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +338,7 @@
 				21695CEE1CE1B7A6003C4ACC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

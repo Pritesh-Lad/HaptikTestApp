@@ -6,6 +6,23 @@
 //  Copyright © 2016 Test. All rights reserved.
 //
 
+/*
+ Question 1:
+ 
+ I have an array with a list of strings. Write a function that takes  an input string and returns true if that string can be created from the the strings in the array.
+ 
+ Example:
+ master_list : [“end” , “back”, “and”, “the”, “po” ,”pu” ,”lar”, “face”]
+ Inputstring:
+ ‘Backend’: True
+ ‘Frontend’: False
+ ‘popular’ : True
+ 
+ Assume that you are taking the input from a text field. Add a done button, pressing on done button should tell whether the inputted text can be created from the strings in the array.
+ */
+
+
+
 #import "StringsViewController.h"
 
 @interface StringsViewController ()
