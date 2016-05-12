@@ -49,9 +49,6 @@
         NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
         [self performSelectorOnMainThread:@selector(showMessagesFromResponse:) withObject:jsonResponse waitUntilDone:NO];
-        
-        NSLog(@"jsonResponse: \n%@", error);
-        
     }];
     
     [dataTask resume];
