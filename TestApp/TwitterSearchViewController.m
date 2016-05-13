@@ -8,13 +8,6 @@
 
 /*
  Build a twitter search client which searches for all the tweets which contain the word ‘iOS’. This will include you creating an app on Twitter Developer Console and getting the Auth Keys. Fetch the search data and save it to Core Data and display it on a UITableView.
- 
- Consumer Key (API Key) ZaUy9YTiaVCGCdO8MBHeA6KZz
- Consumer Secret (API Secret) A3s9pUcywUcFmFtxwnqJ5oxmoIx9fcy1b1sQCAIKoA6r3GxnCA
- 
- 
- Access Token 159859555-J0AZCzs28EWbdOXS6b4WZ7MmRi4vTeIO2f8YxKpk
- Access Token Secret WsaUsEaetlgKUSoH2Nlz6k0VQ1206F2SPQMy6rc6dypgs
  */
 
 #import "TwitterSearchViewController.h"
@@ -42,6 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Tweeter Search : 'iOS'";
+    
     [self requestAuthToken];
 }
 
@@ -50,6 +44,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Helpers
 -(void)requestAuthToken
 {
     NSString *tokenCredentials = [NSString stringWithFormat:@"%@:%@", CONSUMER_KEY, CONSUMER_SECRET];
@@ -148,22 +143,12 @@
                 [self.tweetsTableView reloadData];
             });
         }
-        
-//        tweets = [[NSMutableArray alloc] init];
-//        
-//        for (NSDictionary *tweetDict in statuses) {
-//            TweetData *tweet = [[TweetData alloc] initWithDictionary:tweetDict];
-//            [tweets addObject:tweet];
-//        }
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.tweetsTableView reloadData];
-//        });
     }];
     
     [dataTask resume];
 }
 
+#pragma mark - TableView Data Source & Delegates
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return tweets.count;
@@ -195,15 +180,5 @@
     
     return  cell;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

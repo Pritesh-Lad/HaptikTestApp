@@ -36,6 +36,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Chat Conversation";
 
+    //Send chat conversation request
     NSString *urlString = @"http://haptik.co/android/test_data/";
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -52,9 +53,9 @@
     }];
     
     [dataTask resume];
-    
 }
 
+#pragma mark - Helpers
 - (void)showMessagesFromResponse:(NSDictionary*)respDict
 {
     messageList = [[NSMutableArray alloc] init];
@@ -64,6 +65,11 @@
     {
         MessageData *message = [[MessageData alloc] initWithDictionary:messageDict];
         
+        /*
+         'participants' map holds message frequencies for all participants.
+         key - participant name
+         value - no. of messages the participant has contributed
+         */
         if ([participants objectForKey:message.name]) {
             NSNumber *messageCount = participants[message.name];
             participants[message.name] = [NSNumber numberWithInt:messageCount.intValue+1];
@@ -76,6 +82,7 @@
         [messageList addObject:message];
     }
     
+    //Find & display top 2 participants - O(n)
     NSNumber *topper = @0;
     NSString *topperName = @"";
     
@@ -100,8 +107,6 @@
     self.topperLabel.text = [NSString stringWithFormat:@"%@ - %ld messages", topperName, [(NSNumber*)participants[topperName] longValue]];
     self.runnerLabel.text = [NSString stringWithFormat:@"%@ - %ld messages", runnerName, [(NSNumber*)participants[runnerName] longValue]];
     
-    NSLog(@"Top 2 participants:\n %@\n%@", topperName, runnerName);
-    
     if (messageList.count > 0)
     {
         //Load messages.
@@ -109,6 +114,7 @@
     }
 }
 
+#pragma mark - TableView Data Source & Delegates
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return messageList.count;
@@ -153,15 +159,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

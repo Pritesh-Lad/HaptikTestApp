@@ -46,6 +46,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - IBAction
 - (IBAction)verifyString:(id)sender {
     
     NSString *input = [self.inputField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -63,7 +64,6 @@
             if ([inputString isEqualToString:@""]) {
                 //String can be formed.
                 [self showAlertWithMessage:@"String can be formed"];
-                NSLog(@"String can be formed");
                 break;
             }
         }
@@ -71,7 +71,6 @@
         if (![inputString isEqualToString:@""]) {
             //String can't be formed.
             [self showAlertWithMessage:@"String can't be formed"];
-            NSLog(@"String can't be formed");
         }
         
     }
@@ -79,10 +78,10 @@
     {
         //Alert
         [self showAlertWithMessage:@"Please enter a string to be verified"];
-        NSLog(@"Please enter a string to be verified");
     }
 }
 
+#pragma mark - Helper
 - (void)showAlertWithMessage:(NSString*)message
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
@@ -97,15 +96,5 @@
     [alert addAction:okAction];
     [self presentViewController:alert animated:YES completion:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

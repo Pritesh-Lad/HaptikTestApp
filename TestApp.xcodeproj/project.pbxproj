@@ -69,6 +69,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21029A841CE6189D0054096C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				21695CDB1CE1B7A4003C4ACC /* ViewController.h */,
+				21695CDC1CE1B7A4003C4ACC /* ViewController.m */,
+				21695CEF1CE1D88A003C4ACC /* StringsViewController.h */,
+				21695CF01CE1D88A003C4ACC /* StringsViewController.m */,
+				21695CF21CE1D8D0003C4ACC /* ChatViewController.h */,
+				21695CF31CE1D8D1003C4ACC /* ChatViewController.m */,
+				21695CF51CE1D8F1003C4ACC /* TwitterSearchViewController.h */,
+				21695CF61CE1D8F1003C4ACC /* TwitterSearchViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		21029A851CE618DA0054096C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				21695CFA1CE2FFBB003C4ACC /* MessageData.h */,
+				21695CFB1CE2FFBB003C4ACC /* MessageData.m */,
+				21029A811CE5B6DA0054096C /* TweetData.h */,
+				21029A821CE5B6DA0054096C /* TweetData.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		21029A861CE618FA0054096C /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				21695CFD1CE321F2003C4ACC /* MessageCell.h */,
+				21695CFE1CE321F2003C4ACC /* MessageCell.m */,
+				21029A7E1CE5B6AF0054096C /* TweetsCell.h */,
+				21029A7F1CE5B6AF0054096C /* TweetsCell.m */,
+			);
+			name = CustomCells;
+			sourceTree = "<group>";
+		};
 		21695CC91CE1B7A1003C4ACC = {
 			isa = PBXGroup;
 			children = (
@@ -90,31 +127,18 @@
 		21695CD41CE1B7A3003C4ACC /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
-				21695CF81CE1EE82003C4ACC /* button_bg@2x.png */,
 				21695CD81CE1B7A4003C4ACC /* AppDelegate.h */,
 				21695CD91CE1B7A4003C4ACC /* AppDelegate.m */,
-				21695CDB1CE1B7A4003C4ACC /* ViewController.h */,
-				21695CDC1CE1B7A4003C4ACC /* ViewController.m */,
-				21695CEF1CE1D88A003C4ACC /* StringsViewController.h */,
-				21695CF01CE1D88A003C4ACC /* StringsViewController.m */,
-				21695CF21CE1D8D0003C4ACC /* ChatViewController.h */,
-				21695CF31CE1D8D1003C4ACC /* ChatViewController.m */,
-				21695CF51CE1D8F1003C4ACC /* TwitterSearchViewController.h */,
-				21695CF61CE1D8F1003C4ACC /* TwitterSearchViewController.m */,
+				21029A841CE6189D0054096C /* ViewControllers */,
+				21029A861CE618FA0054096C /* CustomCells */,
+				21029A851CE618DA0054096C /* Models */,
+				21695CF81CE1EE82003C4ACC /* button_bg@2x.png */,
 				21695CDE1CE1B7A5003C4ACC /* Main.storyboard */,
 				21695CE41CE1B7A6003C4ACC /* Assets.xcassets */,
 				21695CE61CE1B7A6003C4ACC /* LaunchScreen.storyboard */,
 				21695CE91CE1B7A6003C4ACC /* Info.plist */,
 				21695CE11CE1B7A5003C4ACC /* TestApp.xcdatamodeld */,
 				21695CD51CE1B7A3003C4ACC /* Supporting Files */,
-				21695CFA1CE2FFBB003C4ACC /* MessageData.h */,
-				21695CFB1CE2FFBB003C4ACC /* MessageData.m */,
-				21695CFD1CE321F2003C4ACC /* MessageCell.h */,
-				21695CFE1CE321F2003C4ACC /* MessageCell.m */,
-				21029A7E1CE5B6AF0054096C /* TweetsCell.h */,
-				21029A7F1CE5B6AF0054096C /* TweetsCell.m */,
-				21029A811CE5B6DA0054096C /* TweetData.h */,
-				21029A821CE5B6DA0054096C /* TweetData.m */,
 			);
 			path = TestApp;
 			sourceTree = "<group>";
