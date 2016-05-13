@@ -18,38 +18,31 @@
  */
 
 #import "TwitterSearchViewController.h"
-#import <Accounts/Accounts.h>
-#import <Social/Social.h>
+#import "TweetData.h"
+#import "TweetsCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "AppDelegate.h"
 
 #define CONSUMER_KEY @"ZaUy9YTiaVCGCdO8MBHeA6KZz"
 #define CONSUMER_SECRET @"A3s9pUcywUcFmFtxwnqJ5oxmoIx9fcy1b1sQCAIKoA6r3GxnCA"
 
 @interface TwitterSearchViewController ()
+{
+    NSMutableArray *tweets;
+}
 
 @property (nonatomic,strong) NSMutableArray *results;
-@property (nonatomic,strong) ACAccountStore *accountStore;
 
 @end
 
 @implementation TwitterSearchViewController
 
-- (ACAccountStore *)accountStore
-{
-    if (_accountStore == nil)
-    {
-        _accountStore = [[ACAccountStore alloc] init];
-    }
-    return _accountStore;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-//    [self requestAuthToken];
-    
-    
-//    [self loadQuery];
+    self.navigationItem.title = @"Tweeter Search : 'iOS'";
+    [self requestAuthToken];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,75 +52,148 @@
 
 -(void)requestAuthToken
 {
-    NSString *urlString = @"http://api.twitter.com/oauth2/token/";
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSString *tokenCredentials = [NSString stringWithFormat:@"%@:%@", CONSUMER_KEY, CONSUMER_SECRET];
+    NSString *base64TokenCreds = [[tokenCredentials dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/oauth2/token/"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+
     request.HTTPMethod = @"POST";
+    
     [request addValue:@"application/x-www-form-urlencoded;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
     
+    [request addValue:[NSString stringWithFormat:@"Basic %@", base64TokenCreds] forHTTPHeaderField:@"Authorization"];
     
+    NSString *body = @"grant_type=client_credentials";
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     
-    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data,NSURLResponse *response, NSError *error)
-                                      {
-                                          NSLog(@"Response:- \n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                                          
-                                          //Received response.
-                                          NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-                                          
-                                          [self performSelectorOnMainThread:@selector(showMessagesFromResponse:) withObject:jsonResponse waitUntilDone:NO];
-                                      }];
+    {
+        //Received response.
+        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        
+        if ([[jsonResponse valueForKey:@"token_type"] isEqualToString:@"bearer"])
+        {
+            NSString *accessToken = [jsonResponse valueForKey:@"access_token"];
+            [self loadQueryWithBearerToken:accessToken];
+        }
+    }];
     
     [dataTask resume];
 }
 
-- (void)loadQuery
+- (void)loadQueryWithBearerToken:(NSString*)bearerToken
 {
     NSString *query = @"iOS";
     NSString *encodedQuery = [query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
-    ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    [self.accountStore requestAccessToAccountsWithType:accountType
-                                               options:NULL
-                                            completion:^(BOOL granted, NSError *error)
-     {
-         if (granted)
-         {
-             NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1.1/search/tweets.json"];
-             NSDictionary *parameters = @{@"q" : encodedQuery};
-             
-             SLRequest *slRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                       requestMethod:SLRequestMethodGET
-                                                                 URL:url
-                                                          parameters:parameters];
-             
-             NSArray *accounts = [self.accountStore accountsWithAccountType:accountType];
-             slRequest.account = [accounts lastObject];
-             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1.1/search/tweets.json?q=%@&lang=en", encodedQuery]];
 
-             [slRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                 
-                 NSError *jsonParsingError = nil;
-                 NSDictionary *jsonResults = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&jsonParsingError];
-                 
-                 self.results = jsonResults[@"statuses"];
-                 
-                 if ([self.results count] == 0)
-                 {
-                     NSArray *errors = jsonResults[@"errors"];
-                     NSLog(@"Error occured :\n%@", errors);
-                 }
-                 
-                 NSLog(@"jsonResults:\n%@", jsonResults);
-             }];
-         }
-         else
-         {
-             NSLog(@"Permission rejected");
-         }
-     }];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request addValue:[NSString stringWithFormat:@"Bearer %@", bearerToken] forHTTPHeaderField:@"Authorization"];
+
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data,NSURLResponse *response, NSError *error)
+    {
+        //Received response.
+        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        NSArray *statuses = [jsonResponse valueForKey:@"statuses"];
+        
+        if (statuses != nil && statuses.count > 0)
+        {
+            //Save results in DB
+            NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:statuses];
+            
+            AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            NSManagedObjectContext *context = [appDelegate managedObjectContext];
+            
+            NSManagedObject *searchResultsObj = [NSEntityDescription insertNewObjectForEntityForName:@"Tweets" inManagedObjectContext:context];
+
+            [searchResultsObj setValue:arrayData forKey:@"searchResults"];
+            
+            if (![context save:&error]) {
+                NSLog(@"Unable to save managed object context.");
+                NSLog(@"%@, %@", error, error.localizedDescription);
+            }
+            
+            //Retrieve results from DB
+            NSEntityDescription *entityDesc =
+            [NSEntityDescription entityForName:@"Tweets"
+                        inManagedObjectContext:context];
+            
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            [fetchRequest setEntity:entityDesc];
+            
+            NSArray *fetchedArray = [context executeFetchRequest:fetchRequest error:&error];
+            if ( fetchedArray.count > 0) {
+                searchResultsObj = [fetchedArray lastObject];
+                NSData *dbData = (NSData*)[searchResultsObj valueForKey:@"searchResults"];
+                statuses = [NSKeyedUnarchiver unarchiveObjectWithData:dbData];
+            }
+            
+            NSMutableArray *searches = [[NSMutableArray alloc] init];
+            for (NSDictionary *tweetDict in statuses) {
+                TweetData *tweet = [[TweetData alloc] initWithDictionary:tweetDict];
+                [searches addObject:tweet];
+            }
+            
+            [tweets removeAllObjects];
+            tweets = searches;
+            
+            //Reload data
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                [self.tweetsTableView reloadData];
+            });
+        }
+        
+//        tweets = [[NSMutableArray alloc] init];
+//        
+//        for (NSDictionary *tweetDict in statuses) {
+//            TweetData *tweet = [[TweetData alloc] initWithDictionary:tweetDict];
+//            [tweets addObject:tweet];
+//        }
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.tweetsTableView reloadData];
+//        });
+    }];
+    
+    [dataTask resume];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return tweets.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TweetData *tweet = tweets[indexPath.row];
+    CGRect rect = [tweet.tweetText boundingRectWithSize:CGSizeMake(self.tweetsTableView.bounds.size.width - 80, MAXFLOAT) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:13.0]} context:nil];
+    
+    return MAX(rect.size.height + 60, 90);
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TweetsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetsCell"];
+    TweetData *tweet = tweets[indexPath.row];
+    [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:tweet.profileImageUrl] placeholderImage:nil];
+    cell.userNameLabel.text = tweet.userName;
+    
+    CGRect rect = [tweet.tweetText boundingRectWithSize:CGSizeMake(self.tweetsTableView.bounds.size.width - 80, MAXFLOAT) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:13.0]} context:nil];
+    
+    CGRect tweetFrame = cell.tweetLabel.frame;
+    tweetFrame.size.height = ceil(rect.size.height);
+    cell.tweetLabel.frame = tweetFrame;
+    
+    cell.tweetLabel.text = tweet.tweetText;
+    cell.dateLabel.text = tweet.dateString;
+    
+    return  cell;
 }
 
 /*
